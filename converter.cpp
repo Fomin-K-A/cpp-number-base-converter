@@ -54,9 +54,12 @@ std::string ToBase(long long number_dec, int base_to) {
 }
 
 int main(int argc, char* argv[]) {
-  std::string N = argv[1];
-  int base_given = std::stoi(argv[2]);
-  int base_to = std::stoi(argv[3]);
+  std::string N;
+  int base_given;
+  int base_to;
+
+  std::cin >> N >> base_given >> base_to;
+
   bool is_valid = true;
 
 
