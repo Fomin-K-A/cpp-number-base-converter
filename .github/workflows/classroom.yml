@@ -23,6 +23,8 @@ jobs:
              clang++ -pedantic-errors -std=c++17 converter.cpp -o converter
       - name: Autograding
         uses: amcp-pit/autograding@v1
+      - name: Install valgrind
+        run: sudo apt-get update && sudo apt-get install -y valgrind
       - name: Memory leaks
         run: |
              echo 100010100111110101 2 20 | valgrind --tool=memcheck --leak-check=full --undef-value-errors=no --error-exitcode=111 ./converter
