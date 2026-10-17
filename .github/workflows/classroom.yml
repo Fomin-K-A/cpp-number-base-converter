@@ -1,0 +1,45 @@
+name: GitHub Classroom Workflow
+
+on: 
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '.github/*'
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  Checking-Solution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+             clang++ -pedantic-errors -std=c++17 converter.cpp -o converter
+      - name: Autograding
+        uses: amcp-pit/autograding@v1
+      - name: Memory leaks
+        run: |
+             echo 100010100111110101 2 20 | valgrind --tool=memcheck --leak-check=full --undef-value-errors=no --error-exitcode=111 ./converter
+      - name: Code linting
+        uses: amcp-pit/cpp-linter@v1
+        with:
+          extra-args-before: '-xc++'
+          after-args: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: CPD
+        uses: amcp-pit/cpd-action@v1
+        id: cpd
+        with:
+          repository: ${{ github.repository }}
+          collection: ${{ github.repository_owner  }}
+      - name: Clean
+        run: |
+             rm -rf ./* || true
+             rm -rf ./.??* || true
