@@ -32,9 +32,9 @@ int CharToInt(char ch) {
   return ch - 'A' + 10;
 }
 
-long long ToDec(std::string & N, int base_given) {
-  long long mult = 1;
-  long long result = 0;
+unsigned long long ToDec(std::string & N, int base_given) {
+  unsigned long long mult = 1;
+  unsigned long long result = 0;
 
   for (int i = N.size() - 1; i >= 0; i--) {
     result = result + CharToInt(N[i]) * mult;
@@ -44,7 +44,7 @@ long long ToDec(std::string & N, int base_given) {
   return result;
 }
 
-std::string ToBase(long long number_dec, int base_to) {
+std::string ToBase(unsigned long long number_dec, int base_to) {
   std::string result = "";
   while (number_dec != 0) {
     int number = number_dec % base_to;
@@ -63,13 +63,12 @@ int main(int argc, char* argv[]) {
 
   bool is_valid = true;
 
-
   is_valid = Validation(N, base_given);
   if (is_valid == false) {
     return 0;
   }
 
-  long long number_dec = 0;
+  unsigned long long number_dec = 0;
 
   number_dec = ToDec(N, base_given);
 
