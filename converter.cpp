@@ -47,7 +47,8 @@ long long ToDec(std::string & N, int base_given) {
 std::string ToBase(long long number_dec, int base_to) {
   std::string result = "";
   while (number_dec != 0) {
-    result += std::to_string(number_dec % base_to);
+    int number = number_dec % base_to;
+    result += correct_simbols[number];
     number_dec = number_dec / base_to;
   }
   return result;
