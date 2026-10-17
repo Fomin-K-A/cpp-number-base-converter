@@ -53,14 +53,12 @@ std::string ToBase(long long number_dec, int base_to) {
   return result;
 }
 
-int main() {
-  std::string N;
-  int base_given;
-  int base_to;
+int main(int argc, char* argv[]) {
+  std::string N = argv[1];
+  int base_given = std::stoi(argv[2]);
+  int base_to = std::stoi(argv[3]);
   bool is_valid = true;
 
-  std::getline(std::cin, N);
-  std::cin >> base_given >> base_to;
 
   is_valid = Validation(N, base_given);
   if (is_valid == false) {
